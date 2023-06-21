@@ -48,5 +48,8 @@ public class BookService {
         }
         return bookRepository.findById(id).orElseThrow();
     }
+    public List<Book> getAuthor(String author){
+        return bookRepository.findByAuthor(author);
+    }
 
 }

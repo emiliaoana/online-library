@@ -3,9 +3,12 @@ package com.example.springproject.controller;
 import com.example.springproject.model.Book;
 import com.example.springproject.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -47,11 +50,45 @@ public class BookController {
         return bookService.isAvailable(title);
     }
     @PostMapping("{id}/borrow")
-    public Book borrowBook(@PathVariable Long id){
-        return bookService.borrowBook(id);
+    public ResponseEntity<Object> borrowBook(@PathVariable Long id){
+        try{
+            Book borrowedBook = bookService.borrowBook(id);
+            if(!borrowedBook.isAvailable()) {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not available.");
+            }
+            else {
+                return ResponseEntity.ok(borrowedBook);
+            }
+        }
+        catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
+        }}
+
+
+
+@PostMapping("{id}/return")
+public ResponseEntity<Object> returnBook(@PathVariable Long id){
+    try{
+        Book returnedBook = bookService.returnBook(id);
+        if(returnedBook.isAvailable()) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body("You already returned this book.");
+        }
+        else {
+            return ResponseEntity.ok(returnedBook);
+        }
     }
-    @PostMapping("{id}/return")
-    public Book returnBook(@PathVariable Long id){
-       return bookService.returnBook(id);
+    catch (Exception e) {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Book not found.");
+    }}
+
+    @GetMapping("/author/{author}")
+    public List<Book> getAuthor(@PathVariable String author){
+        return bookService.getAuthor(author);
     }
+//VERIFICAT
+//    @GetMapping("/author")
+//    public List<Book> getAllBooksByAuthor(@RequestParam("author") String author) {
+//        return bookService.getAuthor(author);
+//    }
+
 }
