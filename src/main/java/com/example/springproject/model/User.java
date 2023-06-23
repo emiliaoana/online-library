@@ -11,15 +11,12 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Book {
+public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    private String title;
-    private String author;
-    private boolean isAvailable;
-    @ManyToOne
-    private User user;
-
+    private String name;
+    @OneToMany
+    private List<Book> bookList;
 
 }
