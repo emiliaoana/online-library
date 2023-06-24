@@ -3,6 +3,7 @@ package com.example.springproject.service;
 import com.example.springproject.model.Book;
 import com.example.springproject.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,28 +12,36 @@ import java.util.List;
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
-    public Book saveBook(Book book){
+
+    public Book saveBook(Book book) {
         return bookRepository.save(book);
     }
-    public Book getById(Long id){
+
+    public Book getById(Long id) {
         return bookRepository.findById(id).orElseThrow();
     }
-    public List<Book> getAll(){
+
+    public List<Book> getAll() {
         return bookRepository.findAll();
     }
-    public void deleteById(Long id){
+
+    public void deleteById(Long id) {
         bookRepository.deleteById(id);
     }
-    public Book updateBook(Book book){
+
+    public Book updateBook(Book book) {
         return bookRepository.save(book);
     }
-    public List<Book> getAllAvailableBooks(){
+
+    public List<Book> getAllAvailableBooks() {
         return bookRepository.getAllAvailableBooks();
     }
-    public Book isAvailable(String title){
+
+    public Book isAvailable(String title) {
         return bookRepository.getAvailableByTitle(title);
     }
-    public Book borrowBook(Long id){
+
+    public Book borrowBook(Long id) {
         if (bookRepository.findById(id).orElseThrow().isAvailable()) {
             Book book = bookRepository.findById(id).orElseThrow();
             book.setAvailable(false);
@@ -40,16 +49,21 @@ public class BookService {
         }
         return bookRepository.findById(id).orElseThrow();
     }
-    public Book returnBook(Long id){
-        if(!bookRepository.findById(id).orElseThrow().isAvailable()){
+
+    public Book returnBook(Long id) {
+        if (!bookRepository.findById(id).orElseThrow().isAvailable()) {
             Book book = bookRepository.findById(id).orElseThrow();
             book.setAvailable(true);
             bookRepository.save(book);
         }
         return bookRepository.findById(id).orElseThrow();
     }
-    public List<Book> getAuthor(String author){
+
+    public List<Book> getAuthor(String author) {
         return bookRepository.findByAuthor(author);
     }
 
+    public List<Book> getAuthorSorted(String author) {
+        return bookRepository.findAll(Sort.by(Sort.Direction.ASC, author));
+    }
 }

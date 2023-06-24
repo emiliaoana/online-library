@@ -12,11 +12,9 @@ import java.util.Optional;
 public class BorrowHistoryService {
     private final BorrowHistoryRepository borrowHistoryRepository;
 
-    public void saveBorrow(Long userId, Long bookId){
+    public void saveBorrow(Long userId, Long bookId) {
         borrowHistoryRepository.save(BorrowHistory.builder().userId(userId).bookId(bookId).build());
     }
-    public BorrowHistory getBorrow(Long id){
-        return borrowHistoryRepository.findById(id).orElseThrow();
-    }
+
 
 }

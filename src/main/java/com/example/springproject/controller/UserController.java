@@ -1,7 +1,9 @@
 package com.example.springproject.controller;
 
 import com.example.springproject.model.Book;
+import com.example.springproject.model.BorrowHistory;
 import com.example.springproject.model.User;
+import com.example.springproject.service.BorrowHistoryService;
 import com.example.springproject.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -9,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
