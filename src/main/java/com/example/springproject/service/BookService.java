@@ -1,6 +1,7 @@
 package com.example.springproject.service;
 
 import com.example.springproject.model.Book;
+import com.example.springproject.model.User;
 import com.example.springproject.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Sort;
@@ -48,6 +49,12 @@ public class BookService {
             bookRepository.save(book);
         }
         return bookRepository.findById(id).orElseThrow();
+    }
+
+    public void updateUser(Long id, Long userId) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        book.setUser(User.builder().id(userId).build());
+
     }
 
     public Book returnBook(Long id) {

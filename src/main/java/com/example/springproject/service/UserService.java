@@ -42,6 +42,8 @@ public class UserService {
         }
         user.getBookList().add(bookService.getById(bookId));
         bookService.borrowBook(bookId);
+//        bookService.updateBook(Book.builder().user(User.builder().id(idUser).build()).build());
+        bookService.updateUser(bookId, idUser);
         borrowHistoryService.saveBorrow(idUser, bookId);
         return userRepository.save(user);
     }
