@@ -1,10 +1,12 @@
 package com.example.springproject.service;
 
+import com.example.springproject.model.Book;
 import com.example.springproject.model.BorrowHistory;
 import com.example.springproject.repository.BorrowHistoryRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -16,5 +18,8 @@ public class BorrowHistoryService {
         borrowHistoryRepository.save(BorrowHistory.builder().userId(userId).bookId(bookId).build());
     }
 
+    public List<Book> getMostBorrowedBooks() {
+        return borrowHistoryRepository.getMostBorrowedBooks();
+    }
 
 }
