@@ -3,6 +3,7 @@ package com.example.springproject.controller;
 import com.example.springproject.model.Book;
 import com.example.springproject.service.BookService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -93,6 +94,16 @@ public class BookController {
     @GetMapping("/sort/{author}")
     public List<Book> getAuthorSorted(@PathVariable String author) {
         return bookService.getAuthorSorted(author);
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}")
+    public Page<Book> getBookPagination(@PathVariable int offset, @PathVariable int pageSize) {
+        return bookService.getBookPagination(offset, pageSize);
+    }
+
+    @GetMapping("/pagination/{offset}/{pageSize}/{author}")
+    public Page<Book> getBookPaginationWithSort(@PathVariable int offset, @PathVariable int pageSize, @PathVariable String author) {
+        return bookService.getBookPaginationAndSorting(offset, pageSize, author);
     }
 
 }

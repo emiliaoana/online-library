@@ -4,6 +4,8 @@ import com.example.springproject.model.Book;
 import com.example.springproject.model.User;
 import com.example.springproject.repository.BookRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
@@ -72,5 +74,15 @@ public class BookService {
 
     public List<Book> getAuthorSorted(String author) {
         return bookRepository.findAll(Sort.by(Sort.Direction.ASC, author));
+    }
+
+    public Page<Book> getBookPagination(int offset, int pageSize) {
+        return bookRepository.findAll(PageRequest.of(offset, pageSize));
+
+    }
+
+    public Page<Book> getBookPaginationAndSorting(int offset, int pageSize, String author) {
+        Page<Book> bookPage = bookRepository.findAll(PageRequest.of(offset, pageSize).withSort(Sort.by(author)));
+        return bookPage;
     }
 }
