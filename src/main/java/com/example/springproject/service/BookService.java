@@ -10,6 +10,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Objects;
 
 @Service
 @RequiredArgsConstructor
@@ -56,7 +57,11 @@ public class BookService {
     public void updateUser(Long id, Long userId) {
         Book book = bookRepository.findById(id).orElseThrow();
         book.setUser(User.builder().id(userId).build());
+    }
 
+    public void removeUser(Long id, Long userId) {
+        Book book = bookRepository.findById(id).orElseThrow();
+        if (Objects.equals(book.getUser().getId(), userId)) book.setUser(null);
     }
 
     public Book returnBook(Long id) {

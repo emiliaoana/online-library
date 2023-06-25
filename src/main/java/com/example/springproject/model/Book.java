@@ -1,5 +1,6 @@
 package com.example.springproject.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -20,6 +21,7 @@ public class Book {
     private String title;
     private String author;
     private boolean isAvailable;
+    @JsonBackReference
     @ManyToOne
     private User user;
 
