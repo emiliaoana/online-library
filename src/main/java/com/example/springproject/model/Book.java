@@ -2,12 +2,10 @@ package com.example.springproject.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 
-import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -18,7 +16,11 @@ public class Book {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
+    @NotNull(message = "Title cannot be null")
+    @NotEmpty(message = "Title cannot be empty")
     private String title;
+    @NotNull(message = "Author cannot be null")
+    @NotEmpty(message = "Author cannot be empty")
     private String author;
     private boolean isAvailable;
     @JsonBackReference

@@ -1,5 +1,6 @@
 package com.example.springproject.controller;
 
+import com.example.springproject.ObjectValidator;
 import com.example.springproject.model.Book;
 import com.example.springproject.service.BookService;
 import lombok.RequiredArgsConstructor;
@@ -9,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RequiredArgsConstructor
 @RestController
@@ -28,7 +28,7 @@ public class BookController {
     }
 
     @PostMapping
-    public Book save(@RequestBody Book book) {
+    public Object save(@RequestBody Book book) {
         return bookService.saveBook(book);
     }
 

@@ -208,7 +208,7 @@ public class BookServiceTests {
         Long bookId2 = 2L;
         Long bookId3 = 3L;
         String author1 = "Author1";
-        String author2 = "BAuthor2";
+        String author2 = "DAuthor2";
         String author3 = "CAuthor3";
         Book book1 = Book.builder().id(bookId1).title("GetBook1").author(author1).build();
         Book book2 = Book.builder().id(bookId2).title("GetBook2").author(author2).build();

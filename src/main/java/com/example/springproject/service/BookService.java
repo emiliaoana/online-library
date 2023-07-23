@@ -1,5 +1,6 @@
 package com.example.springproject.service;
 
+import com.example.springproject.ObjectValidator;
 import com.example.springproject.model.Book;
 import com.example.springproject.model.User;
 import com.example.springproject.repository.BookRepository;
@@ -7,18 +8,26 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
 public class BookService {
     private final BookRepository bookRepository;
 
-    public Book saveBook(Book book) {
-        return bookRepository.save(book);
+    public final ObjectValidator objectValidator;
+
+    public ResponseEntity<Object> saveBook(Book book) throws RuntimeException {
+        var violations = objectValidator.validate(book);
+        if (!violations.isEmpty()) {
+            return ResponseEntity.badRequest().body(violations);
+        }
+        return ResponseEntity.ok(bookRepository.save(book));
     }
 
     public Book getById(Long id) {
