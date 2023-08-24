@@ -23,6 +23,7 @@ public class UserController {
     public List<User> getAllUsers() {
         return userService.getAllUsers();
     }
+    
 
     @GetMapping("{id}")
     public ResponseEntity<Object> getUser(@PathVariable Long id) {

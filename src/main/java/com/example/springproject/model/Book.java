@@ -23,6 +23,7 @@ public class Book {
     @NotEmpty(message = "Author cannot be empty")
     private String author;
     private boolean isAvailable;
+    private boolean deleted;
     @JsonBackReference
     @ManyToOne
     private User user;

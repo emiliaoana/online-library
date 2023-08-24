@@ -34,7 +34,7 @@ public class BookController {
 
     @DeleteMapping("{id}")
     public void deleteById(@PathVariable Long id) {
-        bookService.deleteById(id);
+        bookService.softDeleteById(id);
     }
 
     @PutMapping

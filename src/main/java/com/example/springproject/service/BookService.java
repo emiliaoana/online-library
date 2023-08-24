@@ -31,11 +31,13 @@ public class BookService {
     }
 
     public Book getById(Long id) {
-        return bookRepository.findById(id).orElseThrow();
+        if (bookRepository.findById(id).orElseThrow().isDeleted()) return null;
+        else return bookRepository.findById(id).orElseThrow();
     }
 
     public List<Book> getAll() {
-        return bookRepository.findAll();
+        if (bookRepository.findAll().isEmpty()) return null;
+        else return bookRepository.findAll().stream().filter(book -> !book.isDeleted()).collect(Collectors.toList());
     }
 
     public void deleteById(Long id) {
@@ -52,6 +54,10 @@ public class BookService {
 
     public Book isAvailable(String title) {
         return bookRepository.getAvailableByTitle(title);
+    }
+
+    public void softDeleteById(Long id) {
+        bookRepository.softDeleteById(id);
     }
 
     public Book borrowBook(Long id) {

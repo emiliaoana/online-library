@@ -1,6 +1,7 @@
 package com.example.springproject.service;
 
 import com.example.springproject.ObjectValidator;
+//import com.example.springproject.dto.UserRegistrationDto;
 import com.example.springproject.model.Book;
 import com.example.springproject.model.BorrowHistory;
 import com.example.springproject.model.User;
@@ -10,6 +11,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +28,12 @@ public class UserService {
         return userRepository.findAll();
     }
 
+//    public User saveReg(UserRegistrationDto userRegistrationDto) {
+//        User user = User.builder().name(userRegistrationDto.getName()).username(userRegistrationDto.getUsername()).password(userRegistrationDto.getPassword()).build();
+//
+//        return userRepository.save(user);
+//    }
+
     public User getUserById(Long id) {
         return userRepository.findById(id).orElseThrow();
     }
@@ -41,7 +49,7 @@ public class UserService {
         }
         return ResponseEntity.ok(userRepository.save(user));
     }
-    
+
 
     public User saveBook(Long idUser, Long bookId) {
         User user = userRepository.findById(idUser).orElseThrow();
@@ -66,6 +74,8 @@ public class UserService {
     public List<Book> getAllBooksByUser(Long id) {
         return userRepository.findById(id).orElseThrow().getBookList();
     }
+
+
     //Book book = bookRepository.findById(bookId);
     //book.name
 }

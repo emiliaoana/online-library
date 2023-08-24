@@ -23,6 +23,10 @@ public class User {
     @NotEmpty(message = "Name cannot be empty")
     @NotNull(message = "Name cannot be null")
     private String name;
+    //    private String username;
+//    private String password;
+    //    @ManyToMany
+//    private List<Role> role;
     @JsonManagedReference
     @OneToMany
     private List<Book> bookList;
